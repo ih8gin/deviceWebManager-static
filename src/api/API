@@ -1,0 +1,221 @@
+import axios from 'axios'
+import qs from 'qs'
+import Cookies from 'js-cookie'
+import router from '../router/index.js'
+
+const apiGatewayURL='http://localhost:44444'
+
+export var adminAPI = {
+    login: function(data) {
+        return request('/admin/login/', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            return {data:''}
+        })
+    },
+    register: function(data) {
+        return request('/admin/register', 'post', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },    
+    getEmailCaptcha: function(data) {
+        return request('/admin/captcha/request/email', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            return {data:''}
+        })
+    },
+    getPhoneCaptcha: function(data) {
+        return request('/admin/captcha/request/phone', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            return {data:''}
+        })
+    },
+    getProfile: function(data) {
+        return request('/admin/', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    getDetail: function(data) {
+        return request('/admin/detail/', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    update: function(data) {
+        return request('/admin/', 'put', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    close: function(data) {
+        return request('/admin/', 'delete', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    }
+}
+
+export var deviceAPI = {
+    getList: function(data) {
+        return request('/device/', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    getDetail: function(data) {
+        return request('/device/detail/', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    getId: function(data) {
+        return request('/device/id/', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    activate: function(data) {
+        return request('/device/', 'post', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    update: function(data) {
+        return request('/device/', 'put', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    cease: function(data) {
+        return request('/device/cease/', 'put', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    delete: function(data) {
+        return request('/device/', 'delete', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    getSummary: function(data) {
+        return request('/device/summary', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+}
+
+export var alertAPI = {
+    getList: function(data) {
+        return request('/alert/', 'get', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    submit: function(data) {
+        return request('/alert/', 'post', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    },
+    delete: function(data) {
+        return request('/alert/', 'delete', data).then(response => response.data).catch(error => {
+            console.log(error)
+            if (error.response.status == 401){
+                alert("Token已过期,请重新登陆")
+                router.push('/login').catch(error => {error})
+            }
+            return {data:''}
+        })
+    }
+}
+
+function request(path, method, query) {
+    if (method == 'get' || method == 'delete') {
+        return axios({
+            url: apiGatewayURL+path,
+            method: method,
+            params: query,
+            paramsSerializer: function(params) {
+                return qs.stringify(params, {arrayFormat: 'repeat'})
+            },
+            headers: {
+                "Authorization": Cookies.get("token")
+            }
+        })
+    } else {
+        return axios({
+            url: apiGatewayURL+path,
+            method: method,
+            data: query,
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": Cookies.get("token")
+            }
+        })
+    }
+}
+
+export default {adminAPI, deviceAPI, alertAPI}

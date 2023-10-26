@@ -1,0 +1,9 @@
+.select_box{
+    margin: -50px;
+}
+.el-table__header{
+    width: 100% !important;  
+}  
+.el-table__body{  
+    width: 100% !important;  
+}

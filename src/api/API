@@ -12,16 +12,7 @@ export var adminAPI = {
             return {data:''}
         })
     },
-    register: function(data) {
-        return request('/admin/register', 'post', data).then(response => response.data).catch(error => {
-            console.log(error)
-            if (error.response.status == 401){
-                alert("Token已过期,请重新登陆")
-                router.push('/login').catch(error => {error})
-            }
-            return {data:''}
-        })
-    },    
+
     getEmailCaptcha: function(data) {
         return request('/admin/captcha/request/email', 'get', data).then(response => response.data).catch(error => {
             console.log(error)
